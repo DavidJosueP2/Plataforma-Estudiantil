@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Facultad De Ingeniería En Sistemas, Electrónica E Industrial</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="imgs/selloFisei.ico"image/x-icon" />
+  </head>
+
+  <body>
+    <section>
+      <div class="banner">
+        <img
+          src="imgs/selloUTA.png"
+          alt="Logo Izquierdo"
+          class="logo-izquierdo"
+        />
+        <div>
+          <br />
+          <div class="titulo">Plataforma Educativa Institucional</div>
+          <div class="subtitulo">
+            FACULTAD DE INGENIERÍA EN SISTEMAS,
+            <br />ELECTRÓNICA E INDUSTRIAL
+          </div>
+        </div>
+        <img src="imgs/selloFisei.png" alt="Logo Derecho" class="logo-derecho" />
+      </div>
+      <div class="form-login">
+        <div class="form-login-byUser">
+          <div class="loginLine">Bienvenido</div>
+          <form method="post">
+            <input
+              class="inputLogin"
+              type="text"
+              name="user"
+              value=""
+              placeholder="Nombre de usuario o Correo electronico"
+              required=""
+            />
+            <input
+              class="inputLogin"
+              type="password"
+              name="password"
+              value=""
+              placeholder="Contraseña"
+              required=""
+            />
+            <input
+              class="buttonAccess"
+              type="submit"
+              name="submit"
+              value="Acceder"
+            />
+          </form>
+          <div class="link-">
+
+          </div>
+          <p><a href="#">¿Olvidó su Contraseña?</a></p>
+        </div>
+        <div class="form-login-byEmail">
+          <p>Identifíquese usando su cuenta en:</p>
+          <a
+            href="https://www.youtube.com/watch?v=4B1Ccxm0Zk8&list=RD4B1Ccxm0Zk8&start_radio=1&ab_channel=MySymphony"
+          >
+            <img
+              src="imgs/gmail-logo.png"
+              alt="Logo Gmail"
+              class="logo-gmail"
+            />
+          </a>
+        </div>
+      </div>
+      
+    </section>
+
+    <?php 
+        include("correo.php")
+    ?>
+  </body>
+</html>

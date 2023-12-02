@@ -1,0 +1,152 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', sans-serif;
+}
+
+@font-face {
+    font-family: 'StolenTimes';
+    src: url('fonts/StolenTimes.otf') format('truetype');
+}
+
+@font-face {
+    font-family: 'GLAMOROUS';
+    src: url('fonts/GLAMOROUS.otf') format('truetype');
+}
+
+body {
+    background-image: url('imgs/background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+}
+
+.banner {
+    background-color: #333;
+    color: #FFD700;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    top: 10px;
+    left: 25%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 15px;
+}
+
+.titulo {
+    font-family: 'GLAMOROUS';
+    font-size: 30px;
+    margin: 0;
+    text-align: center;
+    height: 40px;
+    font-weight: 500;
+    margin-bottom: 40px;
+}
+
+.subtitulo {
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center; 
+    font-weight: bold;
+}
+
+.logo-izquierdo,
+.logo-derecho {
+    max-width: 165px;
+    height: auto;
+}
+
+.form-login {
+    width: 30%;
+    height: 600px;
+    background-color: #333333ef;
+    margin: auto;
+    margin-top: 225px;
+    box-shadow: 7px 13px 37px;
+    padding: 50px 50px;
+    border-top: 4px solid #FFD700;
+    color: #333;
+    border-radius: 15px;
+}
+
+.inputLogin {
+    width: 100%;
+    border: 1px solid #FFD700;
+    margin-bottom: 17px;
+    padding: 12px 20px;
+    background: #585353;
+    font-size: 20px;
+    border-radius: 4px;
+    color: white; /* Color del texto por defecto */
+    transition: background 0.3s; /* Transición suave para el cambio de color de fondo */
+}
+
+.inputLogin:focus {
+    background: white; /* Cambio de color de fondo al enfocar el input */
+    color: black; /* Cambio de color del texto al enfocar el input */
+}
+
+.inputLogin:not(:focus):valid {
+    background: #585353; /* Color de fondo cuando el input no está enfocado y tiene un valor válido (se ha escrito algo) */
+}
+
+.inputLogin:not(:focus):invalid {
+    background: #585353; /* Color de fondo cuando el input no está enfocado y no tiene un valor válido (no se ha escrito nada o el formato es incorrecto) */
+}
+
+.buttonAccess {
+    width: 100%;
+    height: 50px;
+    background-color: #FFD700;
+    border: none;
+    font-size: 22px;    
+    margin-bottom: 20px;
+    border-radius: 4px;
+    transition: background 0.3s; /* Transición suave para el cambio de color de fondo */
+}
+
+.buttonAccess:hover {
+    background-color: #ff6961;
+}
+
+.form-login-byUser p {
+    height: 40px;
+    color: #FFD700;
+}
+
+.form-login-byUser a {
+    text-decoration: none;
+    color: #FFD700;
+    font-size: 16px;
+}
+
+.form-login-byUser a:hover {
+    text-decoration: underline;
+    color: #ff6961;
+}
+
+.loginLine {
+    color: #ff6961;
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.form-login-byEmail p{
+    margin-top: 20px;
+    color: #FFD700;
+    font-size: 25px;
+    font-weight: 100;
+    text-align: center;
+}
+
+.logo-gmail {
+    margin-top: 11%;
+    margin-left: 20%;
+    width: 60%; /* Ajusta el ancho según tus necesidades */
+}
+

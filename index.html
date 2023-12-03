@@ -5,17 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Facultad De Ingeniería En Sistemas, Electrónica E Industrial</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="icon" href="imgs/selloFisei.ico"image/x-icon" />
+    <link rel="icon" href="imgs/selloFisei.ico" image/x-icon />
   </head>
 
   <body>
     <section>
       <div class="banner">
-        <img
-          src="imgs/selloUTA.png"
-          alt="Logo Izquierdo"
-          class="logo-izquierdo"
-        />
+        <img src="imgs/selloUTA.png" alt="Logo Izquierdo" class="logo-izquierdo" />
         <div>
           <br />
           <div class="titulo">Plataforma Educativa Institucional</div>
@@ -29,13 +25,14 @@
       <div class="form-login">
         <div class="form-login-byUser">
           <div class="loginLine">Bienvenido</div>
-          <form method="post">
+          <form method="post" action="index.php"> <!-- Añadido action para especificar el archivo PHP -->
             <input
               class="inputLogin"
               type="text"
               name="user"
               value=""
-              placeholder="Nombre de usuario o Correo electronico"
+              autocomplete="off"
+              placeholder="Nombre de usuario o Correo electrónico"
               required=""
             />
             <input
@@ -43,6 +40,7 @@
               type="password"
               name="password"
               value=""
+              autocomplete="off"
               placeholder="Contraseña"
               required=""
             />
@@ -52,30 +50,18 @@
               name="submit"
               value="Acceder"
             />
+            <span class="msg"><?php echo $msg; ?></span>
           </form>
-          <div class="link-">
-
-          </div>
+          <div class="link-"></div>
           <p><a href="#">¿Olvidó su Contraseña?</a></p>
         </div>
         <div class="form-login-byEmail">
           <p>Identifíquese usando su cuenta en:</p>
-          <a
-            href="https://www.youtube.com/watch?v=4B1Ccxm0Zk8&list=RD4B1Ccxm0Zk8&start_radio=1&ab_channel=MySymphony"
-          >
-            <img
-              src="imgs/gmail-logo.png"
-              alt="Logo Gmail"
-              class="logo-gmail"
-            />
+          <a href="https://www.youtube.com/watch?v=4B1Ccxm0Zk8&list=RD4B1Ccxm0Zk8&start_radio=1&ab_channel=MySymphony">
+            <img src="imgs/gmail-logo.png" alt="Logo Gmail" class="logo-gmail" />
           </a>
         </div>
       </div>
-      
     </section>
-
-    <?php 
-        include("correo.php")
-    ?>
   </body>
 </html>

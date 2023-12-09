@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Facultad De Ingeniería En Sistemas, Electrónica E Industrial</title>
-  <link rel="stylesheet" href="style-Index.css" />
+  <link rel="stylesheet" href="index-style.css" />
   <link rel="icon" href="imgs/selloFisei.ico" image/x-icon />
 </head>
 
@@ -23,13 +23,12 @@
     <div class="form-login">
       <div class="form-login-byUser">
         <h2>Bienvenido</h2>
-        <form method="post" action="#">
+        <form method="post" action="login.php">
           <input
             class="inputLogin"
             type="text"
-            name="user"
+            name="email"
             value=""
-            autocomplete="off"
             placeholder="Nombre de usuario o Correo electrónico"
             required=""
           />
@@ -38,7 +37,6 @@
             type="password"
             name="password"
             value=""
-            autocomplete="off"
             placeholder="Contraseña"
             required=""
           />
@@ -51,7 +49,7 @@
           <span class="msg"><?php echo $msg; ?></span>
         </form>
         <div class="link-boxers">
-          <label><a href="#">¿Olvidó su Contraseña?</a></label>
+          <label><a href="password-forgot.html">¿Olvidó su Contraseña?</a></label>
           <label><a href="register.html">Cree una nueva cuenta</a></label>
         </div>
       </div>

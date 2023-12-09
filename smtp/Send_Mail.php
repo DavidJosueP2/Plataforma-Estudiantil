@@ -22,8 +22,8 @@ function Send_Mail($to, $subject, $body)
         $mail->Port       = 587;
 
         // Configuración adicional
-        $mail->setFrom($from, 'From Name');
-        $mail->addReplyTo($from, 'From Name');
+        $mail->setFrom($from, 'FISEI');
+        $mail->addReplyTo($from, 'FISEI');
         $mail->isHTML(true);
         $mail->Subject = $subject;
         $mail->Body    = $body;

@@ -19,14 +19,14 @@ if (!empty($_POST['nombres']) && !empty($_POST['apellidos']) && !empty($_POST['e
         $regex = '/^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$/';
 
         if (preg_match($regex, $email)) {
-            $password = md5($password); // encrypted password
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT); // encrypted password
             $activation = md5($email . time()); // encrypted email+timestamp
             $count = mysqli_query($connection, "SELECT id_usuario FROM usuarios WHERE email='$email'");
 
             // email check
             if (mysqli_num_rows($count) < 1) {
                 mysqli_query($connection, "INSERT INTO usuarios(nombre, apellido, email, contrasena, activacion, status, tipo_usuario) 
-                                        VALUES('$nombres', '$apellidos', '$email', '$password', '$activation', '0', '$tipo_usuario')");
+                                        VALUES('$nombres', '$apellidos', '$email', '$hashed_password', '$activation', '0', '$tipo_usuario')");
 
                 // sending email
                 include 'smtp/Send_Mail.php';
@@ -47,6 +47,4 @@ if (!empty($_POST['nombres']) && !empty($_POST['apellidos']) && !empty($_POST['e
 }
 
 echo $msg;
-
 ?>
-

@@ -22,8 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Verificar si la cuenta está verificada (status = 1)
             if ($row['status'] == '1') {
-                // Verificar la contraseña utilizando MD5
-                if (md5($password) == $row['contrasena']) {
+                // Verificar la contraseña utilizando password_verify
+                if (password_verify($password, $row['contrasena'])) {
                     // Iniciar sesión para el usuario
                     $_SESSION['user_id'] = $row['id_usuario'];
                     $_SESSION['user_email'] = $row['email'];

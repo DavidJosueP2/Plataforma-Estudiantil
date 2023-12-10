@@ -4,7 +4,5 @@ RewriteEngine On
 RewriteRule ^activation/([a-zA-Z0-9_-]+)$ activation.php?code=$1
 RewriteRule ^activation/([a-zA-Z0-9_-]+)/$ activation.php?code=$1
 
-# Regla para change-password.php
-RewriteRule ^change-password/([a-zA-Z0-9_-]+)$ change-password.php?token=$1
-RewriteRule ^change-password/([a-zA-Z0-9_-]+)/$ change-password.php?token=$1
+
 

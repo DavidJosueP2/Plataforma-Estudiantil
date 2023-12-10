@@ -40,9 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Cambia la siguiente línea para que apunte a "change-password.html" y pase el token como parámetro
                     $subject = "Recuperación de Contraseña";
                     $message = 'Hola, <br/> <br/>Haz clic en el siguiente enlace para restablecer tu contraseña:<br/> <br/>
-                    <a href="' . $base_url . 'password-reset.html?token=' . $token . '">' . $base_url . 'password-reset.html?token=' . $token . '</a>';
-                    //<a href="' . $base_url . 'change-password/' . $token . '">' . $base_url . 'change-password/' . $token . '</a>';
-
+                    <a href="' . $base_url . 'password-reset.php?token=' . $token . '">' . $base_url . 'password-reset.html?token=' . $token . '</a>';
                     // Uso de la función Send_Mail() para enviar el correo electrónico
                     $result = Send_Mail($email, $subject, $message);
 

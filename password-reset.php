@@ -11,15 +11,14 @@
     <div class="wrapper">
         <h2>Cambia tu contraseña</h2>
         <form action="change-password.php" method="post">
-            <!-- Agrega un campo oculto para enviar el token -->
-            <input type="hidden" name="token" value="<?php echo $_GET['token']; ?>">
-
             <div class="input-box">
                 <input type="password" name="password" placeholder="Nueva contraseña" required>
             </div>
             <div class="input-box">
                 <input type="password" name="confirm_password" placeholder="Confirma contraseña" required>
             </div>
+            <!-- Agrega un campo oculto para enviar el token -->
+            <input type="hidden" name="token" value="<?php echo $_GET['token']; ?>">
             <div class="input-box button">
                 <input type="submit" value="Cambiar Contraseña">
             </div>

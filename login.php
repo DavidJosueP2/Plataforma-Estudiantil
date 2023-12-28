@@ -13,26 +13,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Consultar la base de datos para el usuario con el correo proporcionado
-    $query = "SELECT id_usuario, nombre, apellido, tipo_usuario, email, contrasena, status FROM usuarios WHERE email = '$email' LIMIT 1";
-    $result = mysqli_query($connection, $query);
+    //Se consulta mediante la url
+
+    $url = 'http://192.168.1.4/BackEnd/verificar/'.$email;
     
-    if ($result) {
+    $jsonResponse = file_get_contents($url);
+    $data = json_decode($jsonResponse, true);
+    
+    if ($data) {
         // Verificar si se encontró un usuario
-        if (mysqli_num_rows($result) == 1) {
-            $row = mysqli_fetch_assoc($result);
+        if (mysqli_num_rows($data) == 1) {
 
             // Verificar si la cuenta está verificada (status = 1)
-            if ($row['status'] == '1') {
+            if ($data['status'] == '1') {
                 // Verificar la contraseña utilizando password_verify
-                if (password_verify($password, $row['contrasena'])) {
+                if (password_verify($password, $data['contrasena'])) {
                     // Iniciar sesión para el usuario
                     session_start();
 
-                    $_SESSION['user_id'] = $row['id_usuario'];
-                    $_SESSION['user_email'] = $row['email'];
-                    $_SESSION['name_user'] = $row['nombre'];
-                    $_SESSION['last_name_user'] = $row['apellido'];
-                    $_SESSION['user_type'] = $row['tipo_usuario'];
+                    $_SESSION['user_id'] = $data['id_usuario'];
+                    $_SESSION['user_email'] = $data['email'];
+                    $_SESSION['name_user'] = $data['nombre'];
+                    $_SESSION['last_name_user'] = $data['apellido'];
+                    $_SESSION['user_type'] = $data['tipo_usuario'];
                                         
                     // Redirigir al usuario a home.php con el id_usuario como parámetro
                     header("Location: home.php");

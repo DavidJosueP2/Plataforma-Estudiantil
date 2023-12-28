@@ -6,7 +6,6 @@ $msg = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Conectar a la base de datos (usando $connection en lugar de $con)
     define('AUTHORIZED_SCRIPT', true);
-    require_once 'db.php';
 
     // Obtener datos del formulario
     $email = $_POST['email'];
@@ -22,20 +21,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if ($data) {
         // Verificar si se encontró un usuario
-        if (mysqli_num_rows($data) == 1) {
-
+        if (count($data) == 1) {
+            foreach ($data as $usuario) {
+                $user_id = $usuario['id_usuario'];
+                $user_email = $usuario['email'];
+                $contrasena = $usuario['contrasena'];
+                $name_user = $usuario['nombre'];
+                $last_name_user = $usuario['apellido'];
+                $user_type = $usuario['tipo_usuario'];
+                $status = $usuario['status'];
+            }
             // Verificar si la cuenta está verificada (status = 1)
-            if ($data['status'] == '1') {
+            if ($status == '1') {
                 // Verificar la contraseña utilizando password_verify
-                if (password_verify($password, $data['contrasena'])) {
+                if (password_verify($password, $contrasena)) {
                     // Iniciar sesión para el usuario
                     session_start();
 
-                    $_SESSION['user_id'] = $data['id_usuario'];
-                    $_SESSION['user_email'] = $data['email'];
-                    $_SESSION['name_user'] = $data['nombre'];
-                    $_SESSION['last_name_user'] = $data['apellido'];
-                    $_SESSION['user_type'] = $data['tipo_usuario'];
+                    $_SESSION['user_id'] = $user_id;
+                    $_SESSION['user_email'] = $user_email;
+                    $_SESSION['name_user'] = $name_user;
+                    $_SESSION['last_name_user'] = $last_name_user;
+                    $_SESSION['user_type'] = $user_type;
                                         
                     // Redirigir al usuario a home.php con el id_usuario como parámetro
                     header("Location: home.php");

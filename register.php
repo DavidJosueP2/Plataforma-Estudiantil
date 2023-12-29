@@ -31,10 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       } else {
         // Verificar si la cédula ya ha sido utilizada
         $urlExistsCedula = 'http://192.168.1.4/BackEnd/comprobar/' . $cedula;
-        $jsonResponse = file_get_contents($url);
-        $data = json_decode($jsonResponse, true);
-
-        if (count($data) > 0) {
+        //$jsonResponse = file_get_contents($urlExistsCedula);
+        //$data = json_decode($jsonResponse, true);
+        if ($urlExistsCedula > 0) {
           $msg = 'La cédula ya ha sido utilizada anteriormente.';
         } else {
           // Verificar formato de email
@@ -46,11 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Insertar usuario en la base de datos
             //Se inserta datos mediante la API
-            $urlRegistrar = 'http://192.168.1.4/CursoPHP2/registrar';
+            $urlRegistrar = 'http://192.168.1.4/BackEnd/registrar/';
             $datos = array(
               'id' => $cedula,
-              'nombre' => $nombre,
-              'apellido' => $apellido,
+              'nombre' => $nombres,
+              'apellido' => $apellidos,
               'email' => $email,
               'password' => $hashed_password,
               'activation' => $activation,
@@ -65,8 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             curl_setopt($ch, CURLOPT_POST, true);
 
             $respuesta = curl_exec($ch);
-            //mysqli_query($connection, "INSERT INTO usuarios(id_usuario, nombre, apellido, email, contrasena, activacion, status, tipo_usuario) 
-            //                                    VALUES('$cedula', '$nombres', '$apellidos', '$email', '$hashed_password', '$activation', '0', '$tipo_usuario')");
 
             // Enviar correo electrónico de verificación
             include 'smtp/Send_Mail.php';

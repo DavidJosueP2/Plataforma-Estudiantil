@@ -13,13 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener los valores del formulario
 
 
-    $nombres = mysqli_real_escape_string($connection, $_POST['nombres']);
-    $apellidos = mysqli_real_escape_string($connection, $_POST['apellidos']);
-    $cedula = mysqli_real_escape_string($connection, $_POST['cedula']);
-    $email = mysqli_real_escape_string($connection, $_POST['email']);
-    $password = mysqli_real_escape_string($connection, $_POST['password']);
-    $confirm_password = mysqli_real_escape_string($connection, $_POST['confirm_password']);
-    $tipo_usuario = mysqli_real_escape_string($connection, $_POST['tipo_usuario']);
+    $nombres = $_POST['nombres'];
+    $apellidos = $_POST['apellidos'];
+    $cedula =$_POST['cedula'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+    $tipo_usuario = $_POST['tipo_usuario'];
 
     // Verificar restricciones de la cédula
     if (!preg_match('/^\d{10}$/', $_POST['cedula'])) {
@@ -33,9 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $urlExistsCedula = 'http://192.168.1.4/BackEnd/comprobar/' . $cedula;
         //$jsonResponse = file_get_contents($urlExistsCedula);
         //$data = json_decode($jsonResponse, true);
-        if ($urlExistsCedula > 0) {
-          $msg = 'La cédula ya ha sido utilizada anteriormente.';
-        } else {
+        //if ($urlExistsCedula > 0) {
+        //  $msg = 'La cédula ya ha sido utilizada anteriormente.';
+        //} else {
           // Verificar formato de email
           $regex = '/^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$/';
 
@@ -73,11 +73,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <a href="' . $base_url . 'activation/' . $activation . '">' . $base_url . 'activation/' . $activation . '</a>';
 
             Send_Mail($to, $subject, $body);
+            curl_close($ch);
             $msg = "Registro exitoso, por favor, verifica tu correo electrónico.";
           } else {
             $msg = 'El correo electrónico ingresado no es válido. Por favor, inténtalo de nuevo.';
           }
-        }
+        //}
       }
     }
   } else {

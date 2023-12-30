@@ -1,9 +1,10 @@
 <?php
     include_once 'logic/GestorUsuario.php';
+    include_once 'configs.php';
     verificarSesionIniciada();
 $msg = '';
 // Verificar si se ha enviado el formulario de inicio de sesión
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_POST['submit'])) {
     // Conectar a la base de datos (usando $connection en lugar de $con)
     define('AUTHORIZED_SCRIPT', true);
 
@@ -13,10 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Consultar la base de datos para el usuario con el correo proporcionado
     //Se consulta mediante la url
-
-    $url = 'http://192.168.1.4/BackEnd/verificar/'.$email;
+    $url = $ip.'verificar/'.$email;
     
     $jsonResponse = file_get_contents($url);
+    //Se obtienen las cosas en formato json y se descodifican
     $data = json_decode($jsonResponse, true);
     
     if ($data) {
@@ -59,9 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $msg = "Error al consultar la base de datos";
     }
-
-    // Cerrar la conexión a la base de datos
-    mysqli_close($connection);
 }
 echo $msg;
 ?>

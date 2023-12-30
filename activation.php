@@ -6,14 +6,12 @@ $msg = '';
 
 if (!empty($_GET['code']) && isset($_GET['code'])) {
     // Recoge el código de activación de la URL
-    $code = mysqli_real_escape_string($connection, $_GET['code']);
+    $code = $_GET['code'];
 
     // Verifica si hay un usuario con ese código en la base de datos
     $urlComprobar = $ip.'comprobarAct/' . $code;
     $jsonResponse = file_get_contents($urlComprobar);
     $data = json_decode($jsonResponse, true);
-    //$c = mysqli_query($connection, "SELECT id_usuario, status FROM usuarios WHERE activacion='$code'");
-
     if (count($data) > 0) {
         foreach ($data as $user) {
             $userId = $user['id_usuario'];
@@ -24,8 +22,8 @@ if (!empty($_GET['code']) && isset($_GET['code'])) {
             $datos = array(
                 'id' => $userId
             );
-            activar($datos,$ip);
-            $msg = "Tu cuenta ha sido activada";
+            $respuesta=activar($datos,$ip);
+            $msg = json_decode($respuesta);
         } else {
             $msg = "Tu cuenta ya está activa, no es necesario activarla nuevamente";
         }

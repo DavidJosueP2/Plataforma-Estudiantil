@@ -2,6 +2,7 @@
 // Definir constante que indica que el script está autorizado
 define('AUTHORIZED_SCRIPT', true);
 
+//Vinculo con el back
 include_once 'configs.php';
 include_once 'funcBack/registrar.php';
 
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $msg = 'Las contraseñas no coinciden.';
       } else {
         // Verificar si la cédula ya ha sido utilizada
-        $urlExistsCedula = 'http://192.168.1.4/BackEnd/comprobar/' . $cedula;
+        $urlExistsCedula = $ip .'comprobar/' . $cedula;
         $jsonResponse = file_get_contents($urlExistsCedula);
         $data = json_decode($jsonResponse, true);
         if ($data > 0) {

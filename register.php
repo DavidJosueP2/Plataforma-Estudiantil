@@ -2,7 +2,8 @@
 // Definir constante que indica que el script está autorizado
 define('AUTHORIZED_SCRIPT', true);
 
-include_once 'db.php';
+include_once 'configs.php';
+include_once 'funcBack/registrar.php';
 
 $msg = '';
 
@@ -31,11 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       } else {
         // Verificar si la cédula ya ha sido utilizada
         $urlExistsCedula = 'http://192.168.1.4/BackEnd/comprobar/' . $cedula;
-        //$jsonResponse = file_get_contents($urlExistsCedula);
-        //$data = json_decode($jsonResponse, true);
-        //if ($urlExistsCedula > 0) {
-        //  $msg = 'La cédula ya ha sido utilizada anteriormente.';
-        //} else {
+        $jsonResponse = file_get_contents($urlExistsCedula);
+        $data = json_decode($jsonResponse, true);
+        if ($data > 0) {
+          $msg = 'La cédula ya ha sido utilizada anteriormente.';
+        } else {
           // Verificar formato de email
           $regex = '/^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$/';
 
@@ -45,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Insertar usuario en la base de datos
             //Se inserta datos mediante la API
-            $urlRegistrar = 'http://192.168.1.4/BackEnd/registrar/';
             $datos = array(
               'id' => $cedula,
               'nombre' => $nombres,
@@ -56,14 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               'status' => '0',
               'tipo' => $tipo_usuario
             );
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $urlRegistrar);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($datos));
-            curl_setopt($ch, CURLOPT_POST, true);
-
-            $respuesta = curl_exec($ch);
+            
+            ingresar($datos,$ip);
 
             // Enviar correo electrónico de verificación
             include 'smtp/Send_Mail.php';
@@ -73,12 +67,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <a href="' . $base_url . 'activation/' . $activation . '">' . $base_url . 'activation/' . $activation . '</a>';
 
             Send_Mail($to, $subject, $body);
-            curl_close($ch);
             $msg = "Registro exitoso, por favor, verifica tu correo electrónico.";
           } else {
             $msg = 'El correo electrónico ingresado no es válido. Por favor, inténtalo de nuevo.';
           }
-        //}
+        }
       }
     }
   } else {

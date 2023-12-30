@@ -1,17 +1,7 @@
 <?php
-function ingresar($cedula, $nombre, $apellido, $email, $hashed_password, $activation, $status, $tipo_usuario)
+function ingresar($datos,$ip)
 {
-    $urlRegistrar = 'http://192.168.1.4/BackEnd/registrar';
-    $datos = array(
-        'id' => $cedula,
-        'nombre' => $nombre,
-        'apellido' => $apellido,
-        'email' => $email,
-        'password' => $hashed_password,
-        'activation' => $activation,
-        'status' => $status,
-        'tipo' => $tipo_usuario
-    );
+    $urlRegistrar = $ip .'registrar/';
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $urlRegistrar);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
@@ -20,5 +10,7 @@ function ingresar($cedula, $nombre, $apellido, $email, $hashed_password, $activa
     curl_setopt($ch, CURLOPT_POST, true);
 
     $respuesta = curl_exec($ch);
+    curl_close($ch);
     return $respuesta;
 }
+?>

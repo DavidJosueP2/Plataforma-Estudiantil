@@ -20,16 +20,15 @@ $msg = 'empty';
 
 // Función para obtener opciones del nivel
 function obtenerOpcionesNivel() {
-    include_once 'configs.php';
-    $url = $ip.'/niveles';
-    $jsonResponse = file_get_contents($url);
+    include 'configs.php';
+    $urlGet = $ip.'niveles/';
+    $jsonResponse = file_get_contents($urlGet);
     $data = json_decode($jsonResponse,true);
     /*global $connection; // Acceder a la conexión desde db.php
 
     // Consulta preparada para obtener solo los niveles desde la base de datos
     $sql = "SELECT nombre_nivel FROM niveles";
     $stmt = mysqli_prepare($connection, $sql);*/
-
     if ($data != null) {
         //mysqli_stmt_execute($stmt);
         //$result = mysqli_stmt_get_result($stmt);

@@ -1,9 +1,9 @@
 <?php
 function selectAllEmail($datos,$ip)
 {
-    $urlRegistrar = $ip .'seleccionar/';
+    $url = $ip .'seleccionar/';
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $urlRegistrar);
+    curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($datos));
@@ -16,9 +16,23 @@ function selectAllEmail($datos,$ip)
 
 function selectAllID($datos,$ip)
 {
-    $urlRegistrar = $ip .'select/';
+    $url = $ip .'select/';
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $urlRegistrar);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($datos));
+    curl_setopt($ch, CURLOPT_POST, true);
+
+    $respuesta = curl_exec($ch);
+    curl_close($ch);
+    return json_decode($respuesta,true);
+}
+
+function selectIdClave($datos,$ip) {
+    $url = $ip.'selectToken/';
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($datos));

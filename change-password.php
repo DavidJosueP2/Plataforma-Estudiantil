@@ -1,6 +1,4 @@
 <?php
-include_once 'funcBack/selectAll.php';
-include 'db.php';
 date_default_timezone_set('America/Guayaquil');
 
 $msg = '';

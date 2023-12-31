@@ -42,4 +42,5 @@ function selectIdClave($datos,$ip) {
     curl_close($ch);
     return json_decode($respuesta,true);
 }
+
 ?>

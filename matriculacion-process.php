@@ -7,8 +7,6 @@ verificarSesionNoIniciada();
 $_GLOBALS['sectionHeader'] = "Matriculación";
 
 define('AUTHORIZED_SCRIPT', true);
-//include_once 'db.php';
-
 $esProfesor = ($_SESSION['user_type'] == "profesor");
 $msg = '';
 
@@ -46,13 +44,13 @@ function matricularEstudiante() {
     $idMateriaParalelo = obtenerIdMateriaParalelo($idMateria, $idParalelo);
 
     // Obtener el ID del profesor por defecto
-    $idProfesorPorDefecto = "0950191253";
+    //$idProfesorPorDefecto = "1877283881";
     if (!is_null($idMateriaParalelo)) {
         // Ya existe un registro para esta materia y paralelo, mostrar mensaje
         $msg = "Ya estás inscrito en esta materia y paralelo.";
     } else {
         // No existe un registro, crear uno nuevo
-        $idMateriaParalelo = crearMateriaParalelo($idMateria, $idParalelo, $idProfesorPorDefecto);
+        $idMateriaParalelo = crearMateriaParalelo($idMateria, $idParalelo);
 
         if (!is_null($idMateriaParalelo)) {
             // Matriculación exitosa
@@ -78,21 +76,6 @@ function inscribirEstudiante($idMateriaParalelo, $idEstudiante) {
         'id_usuario'=>$idEstudiante
     );
     $respuesta = inscribeEstudiante($datos,$ip);
-    /*$sqlInscribir = "INSERT INTO inscripciones (id_materia_paralelo, id_estudiante) VALUES (?, ?)";
-    $stmtInscribir = mysqli_prepare($connection, $sqlInscribir);
-    mysqli_stmt_bind_param($stmtInscribir, "is", $idMateriaParalelo, $idEstudiante);
-
-    if (mysqli_stmt_execute($stmtInscribir)) {
-        // Inscripción exitosa
-        $msgInscripcion = "Inscripción exitosa. Ahora estás inscrito en la materia.";
-    } else {
-        // Error en la inscripción
-        $msgInscripcion = "Error en la inscripción. Inténtalo de nuevo.";
-    }
-
-    mysqli_stmt_close($stmtInscribir);
-
-    return $msgInscripcion;*/
     return $respuesta;
 }
 
@@ -104,47 +87,17 @@ function obtenerIdMateriaParalelo($idMateria, $idParalelo) {
         'id_paralelo'=>$idParalelo
     );
     $idMateriaParalelo = selectMateriaParalelo($datos,$ip);
-    /*$sqlVerificar = "SELECT id FROM materia_paralelo WHERE id_materia = ? AND id_paralelo = ?";
-    $stmtVerificar = mysqli_prepare($connection, $sqlVerificar);
-    mysqli_stmt_bind_param($stmtVerificar, "ii", $idMateria, $idParalelo);
-    mysqli_stmt_execute($stmtVerificar);
-    $resultVerificar = mysqli_stmt_get_result($stmtVerificar);
-
-    if (mysqli_num_rows($resultVerificar) > 0) {
-        $row = mysqli_fetch_assoc($resultVerificar);
-        $idMateriaParalelo = $row['id'];
-    } else {
-        $idMateriaParalelo = null;
-    }
-
-    mysqli_stmt_close($stmtVerificar);
-
-    return $idMateriaParalelo;*/
     return $idMateriaParalelo;
 }
 
-function crearMateriaParalelo($idMateria, $idParalelo, $idProfesorPorDefecto) {
+function crearMateriaParalelo($idMateria, $idParalelo) {
     include 'configs.php';
     include_once 'funcBack/inscripciones.php';
     $datos = array(
         'id_materia'=>$idMateria,
         'id_paralelo'=>$idParalelo,
-        'id_docente'=>$idProfesorPorDefecto
     );
     $resultado = crearCurso($datos,$ip);
-    /*$sqlInsertar = "INSERT INTO materia_paralelo (id_materia, id_paralelo, id_docente) VALUES (?, ?, ?)";
-    $stmtInsertar = mysqli_prepare($connection, $sqlInsertar);
-    mysqli_stmt_bind_param($stmtInsertar, "iis", $idMateria, $idParalelo, $idProfesorPorDefecto);
-
-    if (mysqli_stmt_execute($stmtInsertar)) {
-        $idMateriaParalelo = mysqli_insert_id($connection);
-    } else {
-        $idMateriaParalelo = null;
-    }
-
-    mysqli_stmt_close($stmtInsertar);
-
-    return $idMateriaParalelo;*/
     return $resultado;
 }
 
@@ -166,25 +119,15 @@ function vincularDocente() {
 
 function actualizarMateriaParalelo($idMateriaParalelo, $idDocente) {
     include 'configs.php';
-    include_once 'funcBackinscripciones.php';
+    include_once 'funcBack/inscripciones.php';
     $datos = array(
         'id_curso'=>$idMateriaParalelo,
         'id_docente'=>$idDocente
     );
-    $respuesta = actualizaDocente($datos,$ip);
-    /*$sqlActualizar = "UPDATE materia_paralelo SET id_docente = ? WHERE id = ?";
-    $stmtActualizar = mysqli_prepare($connection, $sqlActualizar);
-    mysqli_stmt_bind_param($stmtActualizar, "si", $idDocente, $idMateriaParalelo);
-
-    if (mysqli_stmt_execute($stmtActualizar)) {
-        $msg = "Vinculación actualizada exitosamente.";
-    } else {
-        $msg = "Error al actualizar la vinculación. Inténtalo de nuevo.";
+    $res = actualizaDocente($datos,$ip);
+    foreach ($res as $resultado) {
+        $respuesta = $resultado;
     }
-
-    mysqli_stmt_close($stmtActualizar);
-
-    return $msg;*/
     return $respuesta;
 }
 

@@ -24,26 +24,11 @@ function obtenerOpcionesNivel() {
     $urlGet = $ip.'niveles/';
     $jsonResponse = file_get_contents($urlGet);
     $data = json_decode($jsonResponse,true);
-    /*global $connection; // Acceder a la conexión desde db.php
-
-    // Consulta preparada para obtener solo los niveles desde la base de datos
-    $sql = "SELECT nombre_nivel FROM niveles";
-    $stmt = mysqli_prepare($connection, $sql);*/
     if ($data != null) {
-        //mysqli_stmt_execute($stmt);
-        //$result = mysqli_stmt_get_result($stmt);
-
         $opcionesHTML = '<option value="" selected disabled>Seleccione Nivel</option>';
         foreach ($data as $nivel) {
             $opcionesHTML .= "<option value='{$nivel['nombre_nivel']}'>{$nivel['nombre_nivel']}</option>";
         }
-        
-        /*while ($row = mysqli_fetch_assoc($result)) {
-            $opcionesHTML .= "<option value='{$row['nombre_nivel']}'>{$row['nombre_nivel']}</option>";
-        }
-
-        mysqli_stmt_close($stmt);*/
-
         return $opcionesHTML;
     } else {
         // Manejar el caso en que la preparación de la consulta falle
@@ -53,27 +38,48 @@ function obtenerOpcionesNivel() {
 
 // Función para obtener paralelos según el nivel seleccionado
 function obtenerParalelosPorNivel($nivel) {
-    global $connection;
+    include 'configs.php';
+    include_once 'funcBack/selectAll.php';
+    $datos = array(
+        'nivel'=>$nivel
+    );
+    $result = selectParalelos($datos,$ip);
+    $paralelos = [];
+    foreach ($result as $paralelo) {
+        $paralelos[] = $paralelo;
+    }
 
-    $sql = "SELECT id_paralelo, nombre_paralelo FROM paralelos WHERE id_nivel = (SELECT id_nivel FROM niveles WHERE nombre_nivel = ?)";
+    //global $connection;
+
+    /*$sql = "SELECT id_paralelo, nombre_paralelo FROM paralelos WHERE id_nivel = (SELECT id_nivel FROM niveles WHERE nombre_nivel = ?)";
     
     $stmt = mysqli_prepare($connection, $sql);
     mysqli_stmt_bind_param($stmt, "s", $nivel);
     mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-
-    $paralelos = array();
-    while ($row = mysqli_fetch_assoc($result)) {
+    $result = mysqli_stmt_get_result($stmt);*/
+    /*while ($row = mysqli_fetch_assoc($result)) {
         $paralelos[] = $row;
-    }
+    }*/
 
-    mysqli_stmt_close($stmt);
+    //mysqli_stmt_close($stmt);
 
     return $paralelos;
 }
 
 // Función para obtener materias según el nivel seleccionado
 function obtenerMateriasPorNivel($nivel) {
+    include 'configs.php';
+    include_once 'funcBack/selectAll.php';
+    $datos = array(
+        'nivel'=>$nivel
+    );
+    $result = selectMaterias($datos,$ip);
+    $materias = [];
+    foreach ($result as $materia) {
+        $materias[] = $materia;
+    }
+    
+    /*
     global $connection;
 
     $sql = "SELECT id_materia, nombre_materia FROM materias WHERE id_nivel = (SELECT id_nivel FROM niveles WHERE nombre_nivel = ?)";
@@ -89,7 +95,7 @@ function obtenerMateriasPorNivel($nivel) {
     }
 
     mysqli_stmt_close($stmt);
-
+    */
     return $materias;
 }
 

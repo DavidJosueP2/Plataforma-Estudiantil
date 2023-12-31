@@ -4,12 +4,9 @@ session_start();
 
 include_once 'logic/GestorUsuario.php';
 verificarSesionNoIniciada();
-
-include_once 'configs.php';
 $_GLOBALS['sectionHeader'] = "Matriculación";
 
 define('AUTHORIZED_SCRIPT', true);
-include_once 'db.php';
 // Comprueba sesión
 $esProfesor = ($_SESSION['user_type'] == "profesor");
 
@@ -24,7 +21,7 @@ function obtenerOpcionesNivel() {
     $urlGet = $ip.'niveles/';
     $jsonResponse = file_get_contents($urlGet);
     $data = json_decode($jsonResponse,true);
-    if ($data != null) {
+    if ($data) {
         $opcionesHTML = '<option value="" selected disabled>Seleccione Nivel</option>';
         foreach ($data as $nivel) {
             $opcionesHTML .= "<option value='{$nivel['nombre_nivel']}'>{$nivel['nombre_nivel']}</option>";
@@ -48,21 +45,6 @@ function obtenerParalelosPorNivel($nivel) {
     foreach ($result as $paralelo) {
         $paralelos[] = $paralelo;
     }
-
-    //global $connection;
-
-    /*$sql = "SELECT id_paralelo, nombre_paralelo FROM paralelos WHERE id_nivel = (SELECT id_nivel FROM niveles WHERE nombre_nivel = ?)";
-    
-    $stmt = mysqli_prepare($connection, $sql);
-    mysqli_stmt_bind_param($stmt, "s", $nivel);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);*/
-    /*while ($row = mysqli_fetch_assoc($result)) {
-        $paralelos[] = $row;
-    }*/
-
-    //mysqli_stmt_close($stmt);
-
     return $paralelos;
 }
 
@@ -78,41 +60,24 @@ function obtenerMateriasPorNivel($nivel) {
     foreach ($result as $materia) {
         $materias[] = $materia;
     }
-    
-    /*
-    global $connection;
-
-    $sql = "SELECT id_materia, nombre_materia FROM materias WHERE id_nivel = (SELECT id_nivel FROM niveles WHERE nombre_nivel = ?)";
-    
-    $stmt = mysqli_prepare($connection, $sql);
-    mysqli_stmt_bind_param($stmt, "s", $nivel);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-
-    $materias = array();
-    while ($row = mysqli_fetch_assoc($result)) {
-        $materias[] = $row;
-    }
-
-    mysqli_stmt_close($stmt);
-    */
     return $materias;
 }
 
 //Funcion para obtener los profesores
 function obtenerOpcionesProfesor() {
-    global $connection;
-
-    $sql = "SELECT id_usuario, CONCAT(apellido, ' ', nombre) AS nombre_completo FROM usuarios WHERE tipo_usuario = 'profesor' ORDER BY apellido";
-
-    $result = mysqli_query($connection, $sql);
-
-    $profesores = array();
-    while ($row = mysqli_fetch_assoc($result)) {
-        $profesores[] = $row;
+    include 'configs.php';
+    $urlGet = $ip.'profesor/';
+    $jsonResponse = file_get_contents($urlGet);
+    $data = json_decode($jsonResponse,true);
+    if ($data !== null) {
+        $profesores = [];
+        foreach ($data as $profesor) {
+            $profesores[] = $profesor;
+        }
+        return $profesores;
+    } else {
+        return false;
     }
-
-    return $profesores;
 }
 
 //Despliega como opciones un array
@@ -188,8 +153,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nivel'])) {
                 </select>
             </div>
             <?php
-                echo '<label for="profesor">Selecciona un Profesor</label>';
                 if ($esProfesor) {
+                    echo '<label for="profesor">Selecciona un Profesor</label>';
                     $profesores = obtenerOpcionesProfesor();
                     mostrarOpciones($profesores, 'profesor', 'profesor');
                 }

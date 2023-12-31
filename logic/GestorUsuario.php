@@ -33,16 +33,8 @@
         $datos = array(
             'id'=>$user_id
         );
-        $filas = selectAllID($datos,$ip);
+        $filas = selectRestrictedID($datos,$ip);
         return $filas;
-        /*global $connection;
-
-        $sql = "SELECT nombre, apellido, tipo_usuario FROM usuarios WHERE id_usuario = ?";
-        $stmt = mysqli_prepare($connection, $sql);
-        mysqli_stmt_bind_param($stmt, "i", $user_id);
-        mysqli_stmt_execute($stmt);
-        $res = mysqli_stmt_get_result($stmt);
-        $fila = mysqli_fetch_assoc($res);*/
     }
 
     // Actualizar detalles del usuario

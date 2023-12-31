@@ -4,8 +4,6 @@ verificarSesionIniciada();
 
 // Definir constante que indica que el script está autorizado
 define('AUTHORIZED_SCRIPT', true);
-
-require_once("db.php");
 include_once 'configs.php';
 include_once 'funcBack/token.php';
 include_once 'funcBack/selectAll.php';

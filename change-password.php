@@ -1,27 +1,23 @@
 <?php
+include 'funcBack/selectAll.php';
+include 'funcBack/token.php';
 date_default_timezone_set('America/Guayaquil');
 
 $msg = '';
 
 function validarToken($token) {
-    include_once 'configs.php';
-    include_once 'funcBack/token.php';
+    //Se incluye la variable global de la ip
+    include 'configs.php';
     if (empty($token)) {
         echo "Error: No se ha proporcionado un token en el formulario.<br>";
         return false;
     }
-
+    //Se ponen los datos en un array
     $datos = array(
         'reset_token'=>$token
     );
-
     $result = selectIdClave($datos,$ip);
-    //$query = "SELECT id_usuario FROM usuarios WHERE reset_token=? AND reset_expiry > NOW()";
-    //$stmt = mysqli_prepare($connection, $query);
-    //mysqli_stmt_bind_param($stmt, "s", $token);
-    //mysqli_stmt_execute($stmt);
-    //$result = mysqli_stmt_get_result($stmt);
-
+    //Se retorna el id si sale bien, se retorna falso si sale mal
     if ($result != null) {
         foreach ($result as $resultito) {
             $id = $resultito['id_usuario'];
@@ -34,19 +30,16 @@ function validarToken($token) {
 }
 
 function cambiarContrasena($userId, $nuevaContrasena) {
-    include_once 'configs.php';
-    include_once 'funcBack/selectAll.php';
+    //Se incluye la variable global de la ip
+    include 'configs.php';
     $hashNuevaContrasena = password_hash($nuevaContrasena, PASSWORD_DEFAULT);
+    //Se ponen los datos en un array
     $datos = array(
         'contrasena'=>$hashNuevaContrasena,
         'id'=>$userId
     );
     $result = cambiaClave($datos,$ip);
-    /*$query = "UPDATE usuarios SET contrasena=?, reset_token=NULL, reset_expiry=NULL WHERE id_usuario=?";
-    $stmt = mysqli_prepare($connection, $query);
-    mysqli_stmt_bind_param($stmt, "si", $hashNuevaContrasena, $userId);
-    $result = mysqli_stmt_execute($stmt)*/;
-
+    //Se retornan los datos que se tengan
     return $result;
 }
 

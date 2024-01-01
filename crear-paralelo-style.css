@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', sans-serif;
+  }
+  
+  body {
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    min-height: 100vh;
+    background: #fbebea;
+    background-image: url('imgs/idea.avif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+      
+  }
+  
+  .content {
+    display: flex; /* Usamos flexbox para centrar vertical y horizontalmente */
+    flex-direction: column; /* Establecemos la dirección del eje principal como columna */
+    align-items: center;
+    justify-content: center;
+    height: 80vh; /* Ocupa el 100% de la altura de la ventana */
+  }
+  
+  form {
+    padding: 25px;
+    background: #fff;
+    max-width: 50%;
+    width: 100%;
+    border-radius: 7px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+    border-top: 4px solid #ff6961;
+  }
+  
+  form h2 {
+    font-size: 27px;
+    text-align: center;
+    margin: 0px 0 30px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+    position: relative;
+  }
+  
+  label {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 7px;
+  }
+  
+  input,
+  select {
+    height: 45px;
+    padding: 10px;
+    width: 100%;
+    font-size: 15px;
+    outline: none;
+    background: #fff;
+    border-radius: 3px;
+    border: 1px solid #bfbfbf;
+  }
+  
+  input:focus,
+  select:focus {
+    border-color: #9a9a9a;
+  }
+  
+  input.error,
+  select.error {
+    border-color: #f91919;
+    background: #f9f0f1;
+  }
+  
+  small {
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+    color: #f91919;
+  }
+  
+  .submit-btn-container {
+    margin-top: 30px;
+  }
+  
+  .submit-btn-container input {
+    color: white;
+    border: none;
+    height: auto;
+    font-size: 16px;
+    padding: 13px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+    background: #ff6961;
+    transition: 0.2s ease;
+  }
+  
+  .submit-btn-container input:hover {
+    background: #fc4c43;
+  }
+  
+  .checkbox-container {
+    clear: both; /* Limpiar el float para evitar problemas de diseño */
+    line-height: 26px; /* Ajustar al tamaño del checkbox más el espacio adicional */
+  }
+  
+  .checkbox-container input[type="checkbox"] {
+    width: 16px; /* Ancho del checkbox */
+    height: 16px; /* Altura del checkbox */
+    float: left;
+    margin: 0px 20px 0px 0; /* Espacio arriba, derecha, abajo e izquierda del checkbox */
+  }
+  
+  .checkbox-container label {
+    width: 80%; /* Ancho del texto al 80% */
+    float: left; /* Hacer que el texto flote a la izquierda */
+    font-size: 14px; /* Tamaño de fuente para el texto del label */
+    line-height: 26px; /* Ajustar al tamaño del checkbox más el espacio adicional */
+  }

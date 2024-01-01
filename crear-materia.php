@@ -17,6 +17,7 @@ include_once 'crear-materia-process.php';
     <title>Facultad De Ingeniería En Sistemas, Electrónica E Industrial</title>
     <link rel="stylesheet" href="crear-materia-style.css" />
     <link rel="icon" href="imgs/selloFisei.ico" image/x-icon />
+    <script src="crear-materia.js"></script>
 </head>
 
 <body>
@@ -46,7 +47,7 @@ include_once 'crear-materia-process.php';
                 if (!isset($_POST['crear_materia'])) {
                     echo '';
                 } else {
-                    echo creaMateria(trim($_POST['nombre_materia']), $_POST['nivel_paralelo'], isset($_POST['crear_materia']));
+                    echo creaMateria(trim($_POST['nombre_materia']), $_POST['nivel_paralelo']);
                 }
                 ?>
             </label>

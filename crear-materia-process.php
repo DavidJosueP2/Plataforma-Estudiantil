@@ -21,7 +21,7 @@ function obtenerOpcionesMenu()
 }
 
 // Verificar si se ha enviado el formulario
-function creaMateria($nombreMateria, $nombreNivel, $crearMateria)
+function creaMateria($nombreMateria, $nombreNivel)
 {
     if (empty($nombreMateria)) {
         $res = "Error: El nombre de la materia no puede estar vacío.";

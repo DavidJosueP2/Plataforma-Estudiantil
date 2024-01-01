@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', sans-serif;
+  }
+  
+  body {
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    min-height: 100vh;
+    background: #fbebea;
+    /*background-image: url('imgs/idea.avif');*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+      
+  }
+.cursos-estudiante {
+    background: rgb(227, 200, 200);
+    height: 35vh;
+    font-size: 5vh;
+    display: flex;
+    /* Usamos flexbox para centrar vertical y horizontalmente */
+    flex-direction: column;
+    /* Establecemos la dirección del eje principal como columna */
+    align-items: center;
+    justify-content: center;
+}
+.cursos{
+    font-size: 10vh;
+}
